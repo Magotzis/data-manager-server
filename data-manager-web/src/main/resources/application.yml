@@ -45,6 +45,13 @@ spring:
   thymeleaf:
     cache: false
 
+  dubbo:
+    application:
+      name: consumer
+    registry:
+      address: zookeeper://139.199.65.244:2181
+    scan: com.magotzis.dm.api.service
+
 mybatis:
   type-aliases-package: com.magotzis.dm.model
   mapper-locations: classpath:mapper/*.xml

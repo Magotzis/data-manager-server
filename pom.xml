@@ -40,6 +40,8 @@
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
         <data-manager-api.version>1.0.0-SNAPSHOT</data-manager-api.version>
+        <commons-collections.version>3.2.2</commons-collections.version>
+        <commons-lang3.version>3.5</commons-lang3.version>
     </properties>
 
     <dependencyManagement>
@@ -145,6 +147,19 @@
                 <groupId>com.101tec</groupId>
                 <artifactId>zkclient</artifactId>
                 <version>${IoI.zkClient.version}</version>
+            </dependency>
+            <!--集合操作-->
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>${commons-collections.version}</version>
+            </dependency>
+
+            <!--处理基本对象工具包-->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
