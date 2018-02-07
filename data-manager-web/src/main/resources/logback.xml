@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        　　　　　　
+        <encoder>
+            　　　　　　　　
+            <pattern>[%d][%t][%p][%c:%L] %m%n</pattern>
+            　　　　　　
+        </encoder>
+        　　　　　　
+    </appender>
+    　　　　　　　　　　
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <file>logs/template.log</file>
+        　　　　　　　
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            　　　　　　　　　　　　　　
+            <fileNamePattern>logs/template.%d{yyyy-MM-dd}.log</fileNamePattern>
+            　　　　　　　　　　　　　　
+            <maxHistory>30</maxHistory>
+            　　　　　　　　　　　　
+        </rollingPolicy>
+        　　　　　　　　　　　　
+        <encoder>
+            　　　　　　　　　　　　　　
+            <pattern>[%d][%t][%p][%c:%L] %m%n</pattern>
+            　　　　　　　　　　　　
+        </encoder>
+        　　　　　　　　　　
+    </appender>
+    　　　　　　　　　　
+    <root level="INFO">
+        　　　　　　　　　　　　
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="STDOUT"/>　　　　　　　　　
+    </root>
+    　　　　　　　　
+</configuration>

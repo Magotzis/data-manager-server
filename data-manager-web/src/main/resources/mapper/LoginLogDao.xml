@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.magotzis.dm.dao.LoginLogDao">
+    <resultMap id="baseResultMap" type="com.magotzis.dm.model.LoginLog">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="ip" jdbcType="VARCHAR" property="ip"/>
+        <result column="create_dt" jdbcType="TIMESTAMP" property="createDt"/>
+    </resultMap>
+
+    <insert id="insertLog" parameterType="loginLog">
+        INSERT INTO `login_log` (user_id, ip, create_dt) VALUES (#{userId}, #{ip}, #{createDt});
+    </insert>
+
+
+</mapper>

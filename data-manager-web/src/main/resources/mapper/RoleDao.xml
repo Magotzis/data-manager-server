@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.magotzis.dm.dao.RoleDao">
+    <resultMap id="resultMap" type="com.magotzis.dm.model.Role">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="role" jdbcType="VARCHAR" property="role"/>
+    </resultMap>
+
+    <resultMap id="roleResourcesMap" type="com.magotzis.dm.model.Role">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="role" jdbcType="VARCHAR" property="role"/>
+        <collection property="resources" ofType="com.magotzis.dm.model.Resource">
+            <id column="resource_id" property="id"/>
+            <result column="method" property="method"/>
+            <result column="description" property="description"/>
+        </collection>
+    </resultMap>
+
+    <select id="getById" resultMap="resultMap">
+        SELECT *
+        FROM `role`
+        WHERE id = #{id}
+    </select>
+</mapper>
