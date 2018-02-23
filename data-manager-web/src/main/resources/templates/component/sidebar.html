@@ -17,25 +17,25 @@
                 <h3 class="uppercase">权限管理</h3>
             </li>
             <li class="nav-item  ">
-                <a href="javascript:;" class="nav-link nav-toggle">
+                <a href="javascript:" class="nav-link nav-toggle">
                     <i class="fa fa-shield"></i>
                     <span class="title">权限管理</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item  ">
-                        <a href="ui_metronic_grid.html" class="nav-link ">
+                        <a th:href="@{/authority/users}" class="nav-link " id="users">
                             <span class="title">人员管理</span>
                         </a>
                     </li>
                     <li class="nav-item  ">
-                        <a href="ui_colors.html" class="nav-link ">
-                            <span class="title">权限管理</span>
+                        <a th:href="@{/authority/roles}" class="nav-link " id="authorities">
+                            <span class="title">角色管理</span>
                         </a>
                     </li>
                     <li class="nav-item  ">
-                        <a href="ui_general.html" class="nav-link ">
-                            <span class="title">资源管理</span>
+                        <a th:href="@{/authority/authorities}" class="nav-link " id="resources">
+                            <span class="title">权限管理</span>
                         </a>
                     </li>
                 </ul>
