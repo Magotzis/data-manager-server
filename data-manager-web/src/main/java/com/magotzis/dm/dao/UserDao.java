@@ -1,8 +1,8 @@
 package com.magotzis.dm.dao;
 
 import com.magotzis.dm.model.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -14,7 +14,11 @@ public interface UserDao {
 
     List<User> listUsers();
 
-    User getUserByUsername(@PathVariable("username") String username);
+    User getUserByUsername(@Param("username") String username);
 
-    User getUserAndRolesByUsername(@PathVariable("username") String username);
+    User getUserAndRolesByUsername(@Param("username") String username);
+
+    void deleteUser(@Param("username") String username);
+
+    User getActiveUserByUsername(@Param("username") String username);
 }

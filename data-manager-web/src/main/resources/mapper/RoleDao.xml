@@ -15,10 +15,35 @@
             <result column="description" property="description"/>
         </collection>
     </resultMap>
+    <insert id="addRoles">
+        INSERT INTO `user_role`(user_id,role_id) VALUES
+        <foreach collection="roles" item="role" separator=",">
+            (#{userId},#{role.id})
+        </foreach>
+    </insert>
+
+    <delete id="deleteRoles">
+        DELETE FROM `user_role`
+        WHERE user_id = #{userId} AND role_id IN
+        <foreach collection="roles" item="role" separator="," open="(" close=")">
+            #{role.id}
+        </foreach>
+    </delete>
 
     <select id="getById" resultMap="resultMap">
         SELECT *
         FROM `role`
         WHERE id = #{id}
+    </select>
+
+    <select id="getRolesByUserId" resultMap="resultMap">
+        SELECT r.id,r.role
+        FROM `role` r
+            LEFT JOIN `user_role` ur ON ur.user_id = #{userId} AND ur.role_id = r.id
+    </select>
+
+    <select id="findAll" resultMap="resultMap">
+        SELECT *
+        FROM `role`
     </select>
 </mapper>

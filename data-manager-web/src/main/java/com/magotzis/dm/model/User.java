@@ -13,7 +13,11 @@ public class User implements Serializable {
 
     private String username;
 
+    private String email;
+
     private String password;
+
+    private short isDelete;
 
     private Date createTime;
 
@@ -37,12 +41,28 @@ public class User implements Serializable {
         this.username = username;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public short getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(short isDelete) {
+        this.isDelete = isDelete;
     }
 
     public Date getCreateTime() {
@@ -71,14 +91,15 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("User{");
-        sb.append("id=").append(id);
-        sb.append(", username='").append(username).append('\'');
-        sb.append(", password='").append(password).append('\'');
-        sb.append(", createTime=").append(createTime);
-        sb.append(", updateTime=").append(updateTime);
-        sb.append(", roles=").append(roles);
-        sb.append('}');
-        return sb.toString();
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", isDelete=" + isDelete +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", roles=" + roles +
+                '}';
     }
 }
