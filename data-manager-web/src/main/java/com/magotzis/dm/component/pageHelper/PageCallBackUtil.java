@@ -13,7 +13,7 @@ public class PageCallBackUtil {
     /**
      * 封装公共PageHelper的操作
      */
-    public static<T> Page<T> selectPage(PageQuery query, PageCallBack callBack){
+    public static<T> Page<T> selectPage(PageQuery query, PageCallBack<T> callBack){
         Assert.notNull(query, "qry can't be null!");
         Assert.notNull(callBack, "callBack cant' be null!");
         setPageHelperStartPage(query);

@@ -27,6 +27,11 @@ public class PageQuery {
      */
     private Boolean requireTotalCount;
 
+    /**
+     * 全局的搜索条件，条件会应用到每一列(searchable需要设置为 true)
+     **/
+    private String search;
+
     public PageQuery(HttpServletRequest request) {
         //开始的数据行数
         String start = request.getParameter("start");
@@ -38,12 +43,12 @@ public class PageQuery {
         this.setDraw(Integer.parseInt(draw));
         try {
             this.pageSize = Integer.parseInt(length);
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             this.pageSize = 10;
         }
         try {
             this.pageNum = (Integer.parseInt(start) / Integer.parseInt(length)) + 1;
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             this.pageNum = 1;
         }
     }
@@ -78,5 +83,13 @@ public class PageQuery {
 
     public void setRequireTotalCount(Boolean requireTotalCount) {
         this.requireTotalCount = requireTotalCount;
+    }
+
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
     }
 }

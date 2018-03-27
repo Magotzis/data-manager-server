@@ -13,11 +13,11 @@
     　　　　　　　　　　
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 
-        <file>logs/template.log</file>
+        <file>data-manager-web/logs/template.log</file>
         　　　　　　　
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             　　　　　　　　　　　　　　
-            <fileNamePattern>logs/template.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>data-manager-web/logs/template.%d{yyyy-MM-dd}.log</fileNamePattern>
             　　　　　　　　　　　　　　
             <maxHistory>30</maxHistory>
             　　　　　　　　　　　　
