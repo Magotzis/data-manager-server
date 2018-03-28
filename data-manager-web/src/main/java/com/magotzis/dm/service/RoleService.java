@@ -1,5 +1,6 @@
 package com.magotzis.dm.service;
 
+import com.magotzis.dm.model.Resource;
 import com.magotzis.dm.model.Role;
 
 import java.util.List;
@@ -9,4 +10,14 @@ import java.util.List;
  */
 public interface RoleService {
     List<Role> getAll();
+
+    Role getRoleById(int id);
+
+    void deleteRole(int id);
+
+    void updateRoleResources(int id, List<Resource> resources);
+
+    Role getRoleAndResourcesById(int id);
+
+    void addRole(String roleName, List<Resource> resources);
 }

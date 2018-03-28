@@ -1,17 +1,12 @@
 package com.magotzis.dm.service.impl;
 
 import com.alibaba.dubbo.common.utils.CollectionUtils;
-import com.magotzis.dm.component.pageHelper.Page;
-import com.magotzis.dm.component.pageHelper.PageCallBack;
-import com.magotzis.dm.component.pageHelper.PageCallBackUtil;
-import com.magotzis.dm.component.pageHelper.PageQuery;
 import com.magotzis.dm.dao.RoleDao;
 import com.magotzis.dm.dao.UserDao;
 import com.magotzis.dm.exception.user.UserNotExistException;
 import com.magotzis.dm.model.Role;
 import com.magotzis.dm.model.User;
 import com.magotzis.dm.service.UserService;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -51,16 +46,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<User> getUserPage(PageQuery pageQuery) {
-        return PageCallBackUtil.selectPage(pageQuery, new PageCallBack() {
-            @Override
-            public List<User> select() {
-                return userDao.listUsers();
-            }
-        });
-    }
-
-    @Override
     public void deleteUser(String username) {
         User user = getActiveUserByUsername(username);
         if (user == null) {
@@ -82,7 +67,7 @@ public class UserServiceImpl implements UserService {
             roleDao.deleteRoles(user.getId(), deleteRoles);
         }
         if (CollectionUtils.isNotEmpty(addRoles)) {
-            roleDao.addRoles(user.getId(), addRoles);
+            roleDao.addUserRoles(user.getId(), addRoles);
         }
     }
 }

@@ -1,5 +1,5 @@
 var $table = $('#userTable');
-var $role = $('#roles');
+var $role = $('#roles-select2');
 $(function () {
 
     var _table = $table.DataTable($.extend(true, {}, CONSTANT.DATA_TABLES.DEFAULT_OPTION, {
@@ -9,23 +9,26 @@ $(function () {
             dataType: 'json',
             contentType: "application/json; charset=utf-8"
         },
-        serverSide: true,//开启服务器模式:启用服务器分页
+        serverSide: false,
         paging: true,//是否分页
         pagingType: "full_numbers",//除首页、上一页、下一页、末页四个按钮还有页数按钮
         processing: true, //显示处理过程
         autoWidth: true, //自动计算宽度
+        searching: true,
         columns: [
             CONSTANT.DATA_TABLES.COLUMN.CHECKBOX,
             {
                 className: "ellipsis", //文字过长时用省略号显示，CSS实现
                 data: "username",
-                render: CONSTANT.DATA_TABLES.RENDER.ELLIPSIS//会显示省略号的列，需要用title属性实现划过时显示全部文本的效果
+                render: CONSTANT.DATA_TABLES.RENDER.ELLIPSIS,   //会显示省略号的列，需要用title属性实现划过时显示全部文本的效果
+                orderable: false
             },
             {
                 data: "email",
                 render: function (data, type, row, meta) {
                     return '<a href="mailto:' + data + '">' + data + '</a>';
-                }
+                },
+                orderable: false
             },
             {
                 data: "roles",
@@ -41,7 +44,8 @@ $(function () {
             {
                 className: "center",
                 data: "createTime",
-                render: CONSTANT.DATA_TABLES.RENDER.DATE
+                render: CONSTANT.DATA_TABLES.RENDER.DATE,
+                orderable: false
             },
             {
                 data: null,
@@ -99,9 +103,12 @@ function editModal(row) {
     $role.html('');
     // 初始化所有权限
     $role.select2({
+        placeholder: "请选择角色",
         ajax: {
             type: 'GET',
             url: '/users/roles',
+            dataType: 'json',
+            contentType: "application/x-www-form-urlencoded;charset=utf-8",
             processResults: function (resp) {
                 var data = resp.data;
                 var list = data.map(role => ({id: role.id, text: role.role}));

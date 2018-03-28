@@ -17,10 +17,34 @@
         </collection>
     </resultMap>
 
+    <insert id="addRoleResources">
+        INSERT INTO `role_resource`(role_id,resource_id) VALUES
+        <foreach collection="resources" item="resource" separator=",">
+            (#{roleId},#{resource.id})
+        </foreach>
+    </insert>
+
+    <delete id="deleteResources">
+        DELETE FROM `role_resource`
+        WHERE role_id = #{roleId} AND resource_id IN
+        <foreach collection="resources" item="resource" separator="," open="(" close=")">
+            #{resource.id}
+        </foreach>
+    </delete>
+
     <select id="listResourceWithRoles" resultMap="resourceRolesMap">
-        SELECT re.*,ro.id AS role_id,ro.role AS role_name
+        SELECT
+            re.*,
+            ro.id   AS role_id,
+            ro.role AS role_name
         FROM `resource` re
             LEFT JOIN `role_resource` rr ON rr.resource_id = re.id
             LEFT JOIN `role` ro ON ro.id = rr.role_id
+    </select>
+
+    <select id="findResourceByRoleId" resultMap="baseResultMap">
+        SELECT re.*
+        FROM `resource` re
+            LEFT JOIN `role_resource` rr ON rr.resource_id = re.id AND rr.role_id = #{roleId}
     </select>
 </mapper>

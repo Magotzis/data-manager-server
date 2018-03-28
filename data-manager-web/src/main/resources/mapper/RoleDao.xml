@@ -15,11 +15,16 @@
             <result column="description" property="description"/>
         </collection>
     </resultMap>
-    <insert id="addRoles">
+
+    <insert id="addUserRoles">
         INSERT INTO `user_role`(user_id,role_id) VALUES
         <foreach collection="roles" item="role" separator=",">
             (#{userId},#{role.id})
         </foreach>
+    </insert>
+
+    <insert id="addRole" useGeneratedKeys="true" keyProperty="id" parameterType="role">
+        INSERT INTO `role` (role) VALUE (#{role})
     </insert>
 
     <delete id="deleteRoles">
@@ -37,13 +42,41 @@
     </select>
 
     <select id="getRolesByUserId" resultMap="resultMap">
-        SELECT r.id,r.role
+        SELECT
+            r.id,
+            r.role
         FROM `role` r
             LEFT JOIN `user_role` ur ON ur.user_id = #{userId} AND ur.role_id = r.id
     </select>
 
-    <select id="findAll" resultMap="resultMap">
-        SELECT *
-        FROM `role`
+    <select id="findAll" resultMap="roleResourcesMap">
+        SELECT
+            r.*,
+            re.id AS resource_id,
+            re.method,
+            re.description
+        FROM `role` r
+            LEFT JOIN `role_resource` rr ON rr.role_id = r.id
+            LEFT JOIN `resource` re ON rr.resource_id = re.id
     </select>
+
+    <select id="findRoleAndResourcesById" resultMap="roleResourcesMap">
+        SELECT
+            r.*,
+            re.id AS resource_id,
+            re.method,
+            re.description
+        FROM `role` r
+            LEFT JOIN `role_resource` rr ON rr.role_id = r.id
+            LEFT JOIN `resource` re ON rr.resource_id = re.id
+        WHERE r.id = #{id}
+    </select>
+
+    <delete id="deleteRole">
+        DELETE r, ur, rr
+        FROM `role` r
+            LEFT JOIN `user_role` ur ON ur.role_id = r.id
+            LEFT JOIN `role_resource` rr ON rr.role_id = r.id
+        WHERE r.id = #{id}
+    </delete>
 </mapper>

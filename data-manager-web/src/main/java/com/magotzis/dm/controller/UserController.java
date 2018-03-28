@@ -28,9 +28,8 @@ public class UserController {
     private RoleService roleService;
 
     @GetMapping()
-    public ResultMap getUsersPage(HttpServletRequest request) {
-        PageQuery pageQuery = new PageQuery(request);
-        return new ResultMap().page(userService.getUserPage(pageQuery));
+    public ResultMap getUsersList() {
+        return new ResultMap().success(userService.listUsers());
     }
 
     @DeleteMapping("/{username}")

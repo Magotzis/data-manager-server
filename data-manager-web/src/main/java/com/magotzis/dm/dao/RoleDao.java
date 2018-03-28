@@ -11,13 +11,19 @@ import java.util.List;
  */
 @Repository
 public interface RoleDao {
-    String getById(@Param("id") int id);
+    Role getById(@Param("id") int id);
 
     List<Role> getRolesByUserId(@Param("userId") int userId);
 
     void deleteRoles(@Param("userId") int userId, @Param("roles") List<Role> roles);
 
-    void addRoles(@Param("userId") int userId, @Param("roles") List<Role> roles);
+    void addUserRoles(@Param("userId") int userId, @Param("roles") List<Role> roles);
 
     List<Role> findAll();
+
+    void deleteRole(@Param("id") int id);
+
+    Role findRoleAndResourcesById(@Param("id") int id);
+
+    int addRole(Role role);
 }
