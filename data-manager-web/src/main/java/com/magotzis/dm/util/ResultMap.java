@@ -21,7 +21,7 @@ public class ResultMap extends LinkedHashMap<String, Object> {
         this.addAttribute(attributeValue);
     }
 
-    private ResultMap addAttribute(String name, Object object) {
+    public ResultMap addAttribute(String name, Object object) {
         Assert.notNull(name, "Model attribute name must not be null");
         this.put(name, object);
         return this;

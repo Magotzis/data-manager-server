@@ -39,8 +39,11 @@ public class PageQuery {
         String length = request.getParameter("length");
         //DT传递的draw:
         String draw = request.getParameter("draw");
+        //搜索值:
+        String search = request.getParameter("search[value]");
 
         this.setDraw(Integer.parseInt(draw));
+        this.setSearch(search);
         try {
             this.pageSize = Integer.parseInt(length);
         } catch (NumberFormatException e) {
