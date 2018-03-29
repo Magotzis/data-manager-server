@@ -174,7 +174,7 @@ function saveRoleResources() {
                 if (json.statusCode === 200) {
                     notify('success', '新增角色成功');
                 } else {
-                    notify('danger', '新增角色失败');
+                    notify('danger', json.message);
                 }
             }
         });
@@ -192,7 +192,7 @@ function saveRoleResources() {
                 if (json.statusCode === 200) {
                     notify('success', '修改角色成功');
                 } else {
-                    notify('danger', '修改角色失败');
+                    notify('danger', json.message);
                 }
             }
         });

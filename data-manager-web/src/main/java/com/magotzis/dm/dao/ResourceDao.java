@@ -19,4 +19,16 @@ public interface ResourceDao {
     void deleteResources(@Param("roleId") int roleId,@Param("resources") List<Resource> deleteResources);
 
     void addRoleResources(@Param("roleId") int roleId,@Param("resources") List<Resource> addResources);
+
+    List<Resource> listResources(@Param("query") String query);
+
+    long count();
+
+    void add(Resource resource);
+
+    Resource findById(@Param("id") int id);
+
+    void delete(@Param("id") int id);
+
+    void update(Resource resource);
 }

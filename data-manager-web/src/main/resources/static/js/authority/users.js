@@ -87,7 +87,7 @@ function deleteUser(row) {
                         if (json.statusCode === 200) {
                             notify('success', '删除成功');
                         } else {
-                            notify('danger', '删除失败');
+                            notify('danger', json.message);
                         }
                     }
                 });
@@ -158,7 +158,7 @@ function saveUserRoles() {
             if (json.statusCode === 200) {
                 notify('success', '修改成功');
             } else {
-                notify('danger', '修改失败');
+                notify('danger', json.message);
             }
         }
     });

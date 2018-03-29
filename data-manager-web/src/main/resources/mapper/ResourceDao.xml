@@ -5,6 +5,8 @@
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="method" jdbcType="VARCHAR" property="method"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
 
     <resultMap id="resourceRolesMap" type="com.magotzis.dm.model.Resource">
@@ -24,12 +26,29 @@
         </foreach>
     </insert>
 
+    <insert id="add">
+        INSERT INTO `resource` (method, description, create_time) VALUE (#{method}, #{description}, #{createTime})
+    </insert>
+
+    <update id="update">
+        UPDATE `resource`
+        SET method = #{method}, description = #{description}, update_time = #{updateTime}
+        WHERE id = #{id}
+    </update>
+
     <delete id="deleteResources">
         DELETE FROM `role_resource`
         WHERE role_id = #{roleId} AND resource_id IN
         <foreach collection="resources" item="resource" separator="," open="(" close=")">
             #{resource.id}
         </foreach>
+    </delete>
+
+    <delete id="delete">
+        DELETE r, rr
+        FROM `resource` r
+            LEFT JOIN `role_resource` rr ON rr.resource_id = r.id
+        WHERE r.id = #{id}
     </delete>
 
     <select id="listResourceWithRoles" resultMap="resourceRolesMap">
@@ -46,5 +65,26 @@
         SELECT re.*
         FROM `resource` re
             LEFT JOIN `role_resource` rr ON rr.resource_id = re.id AND rr.role_id = #{roleId}
+    </select>
+
+    <select id="listResources" resultMap="baseResultMap">
+        SELECT *
+        FROM `resource`
+        <where>
+            <if test="query != null and query != ''">
+                description LIKE CONCAT('%', #{query}, '%') OR method LIKE CONCAT('%', #{query}, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="count" resultType="long">
+        SELECT count(*)
+        FROM `resource`
+    </select>
+
+    <select id="findById" resultMap="baseResultMap">
+        SELECT *
+        FROM `resource`
+        WHERE id = #{id}
     </select>
 </mapper>
