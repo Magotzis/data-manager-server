@@ -21,4 +21,8 @@ public interface UserDao {
     void deleteUser(@Param("username") String username);
 
     User getActiveUserByUsername(@Param("username") String username);
+
+    User findUserByEmail(@Param("email") String email);
+
+    void add(User user);
 }

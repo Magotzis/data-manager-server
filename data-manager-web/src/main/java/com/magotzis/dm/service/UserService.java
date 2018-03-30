@@ -2,6 +2,7 @@ package com.magotzis.dm.service;
 
 import com.magotzis.dm.model.Role;
 import com.magotzis.dm.model.User;
+import com.magotzis.dm.vo.UserRegisterVo;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface UserService {
     void updateUserRoles(String username, List<Role> roles);
 
     User getActiveUserByUsername(String username);
+
+    void registerUser(UserRegisterVo registerVo);
 }

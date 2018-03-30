@@ -6,6 +6,7 @@
         <result column="username" jdbcType="VARCHAR" property="username"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="fullname" jdbcType="VARCHAR" property="fullname"/>
         <result column="is_delete" jdbcType="BIT" property="isDelete"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
@@ -16,6 +17,7 @@
         <result column="username" jdbcType="VARCHAR" property="username"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="fullname" jdbcType="VARCHAR" property="fullname"/>
         <result column="is_delete" jdbcType="BIT" property="isDelete"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
@@ -24,6 +26,11 @@
             <result column="role_name" property="role"/>
         </collection>
     </resultMap>
+    <insert id="add" parameterType="user">
+        INSERT INTO `user` (username, password, email, fullname, create_time)
+            VALUE (#{username}, #{password}, #{email}, #{fullname}, #{createTime})
+    </insert>
+
     <update id="deleteUser">
         UPDATE `user`
         SET is_delete = 1
@@ -55,12 +62,18 @@
     <select id="getUserByUsername" resultMap="resultMap">
         SELECT *
         FROM `user`
-        WHERE username = #{username}
+        WHERE username = #{username} AND is_delete = 0
     </select>
 
     <select id="getActiveUserByUsername" resultMap="resultMap">
         SELECT *
         FROM `user`
         WHERE username = #{username} AND is_delete = 0
+    </select>
+
+    <select id="findUserByEmail" resultMap="resultMap">
+        SELECT *
+        FROM `user`
+        WHERE email = #{email} AND is_delete = 0
     </select>
 </mapper>

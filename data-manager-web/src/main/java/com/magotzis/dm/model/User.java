@@ -23,6 +23,8 @@ public class User implements Serializable {
 
     private Date updateTime;
 
+    private String fullname;
+
     private List<Role> roles;
 
     public int getId() {
@@ -81,6 +83,14 @@ public class User implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
     public List<Role> getRoles() {
         return roles;
     }
@@ -99,6 +109,7 @@ public class User implements Serializable {
                 ", isDelete=" + isDelete +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
+                ", fullname='" + fullname + '\'' +
                 ", roles=" + roles +
                 '}';
     }

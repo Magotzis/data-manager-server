@@ -6,6 +6,7 @@ import com.magotzis.dm.model.User;
 import com.magotzis.dm.service.RoleService;
 import com.magotzis.dm.service.UserService;
 import com.magotzis.dm.util.ResultMap;
+import com.magotzis.dm.vo.UserRegisterVo;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +28,21 @@ public class UserController {
     @Resource
     private RoleService roleService;
 
-    @GetMapping()
+    @GetMapping
     public ResultMap getUsersList() {
         return new ResultMap().success(userService.listUsers());
+    }
+
+    @PostMapping
+    public ResultMap registerUser(UserRegisterVo registerVo) {
+        Assert.notNull(registerVo, "registerVo can not be null");
+        Assert.hasText(registerVo.getUsername(), "username can not be empty");
+        Assert.hasText(registerVo.getPassword(), "password can not be empty");
+        Assert.hasText(registerVo.getRpassword(), "rpassword can not be empty");
+        Assert.hasText(registerVo.getFullname(), "fullname can not be empty");
+        Assert.hasText(registerVo.getEmail(), "email can not be empty");
+        userService.registerUser(registerVo);
+        return new ResultMap().success();
     }
 
     @DeleteMapping("/{username}")

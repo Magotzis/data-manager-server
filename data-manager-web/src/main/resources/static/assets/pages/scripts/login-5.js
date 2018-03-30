@@ -27,7 +27,7 @@ var Login = function() {
                 }
             },
 
-            invalidHandler: function(event, validator) { //display error alert on form submit   
+            invalidHandler: function(event, validator) { //display error alert on form submit
                 $('.alert-danger', $('.login-form')).show();
             },
 
@@ -123,32 +123,6 @@ var Login = function() {
     }
 
     var handleRegister = function() {
-
-        function format(state) {
-            if (!state.id) { return state.text; }
-            var $state = $(
-                '<span><img src="../assets/global/img/flags/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
-            );
-
-            return $state;
-        }
-
-        if (jQuery().select2 && $('#country_list').size() > 0) {
-            $("#country_list").select2({
-                placeholder: '<i class="fa fa-map-marker"></i>&nbsp;Select a Country',
-                templateResult: format,
-                templateSelection: format,
-                width: 'auto',
-                escapeMarkup: function(m) {
-                    return m;
-                }
-            });
-
-
-            $('#country_list').change(function() {
-                $('.register-form').validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input
-            });
-        }
 
         $('.register-form').validate({
             errorElement: 'span', //default input error message container
@@ -252,3 +226,22 @@ var Login = function() {
 jQuery(document).ready(function() {
     Login.init();
 });
+
+function register() {
+    if ($('.register-form').validate().form()) {
+        $.ajax({
+            type: "POST",
+            url: "/users",
+            data: $('.register-form').serialize(),
+            success: function (json) {
+                if (json.statusCode === 200) {
+                    $('.register-form').hide();
+                    $('.login-form').show();
+                    notify('success', '注册成功');
+                } else {
+                    notify('danger', json.message);
+                }
+            }
+        })
+    }
+}
