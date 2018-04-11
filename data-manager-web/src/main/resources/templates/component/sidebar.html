@@ -40,6 +40,28 @@
                     </li>
                 </ul>
             </li>
+            <li class="heading">
+                <h3 class="uppercase">数据管理</h3>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:" class="nav-link nav-toggle">
+                    <i class="fa fa-database"></i>
+                    <span class="title">数据管理</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a th:href="@{/data/import}" class="nav-link " id="import">
+                            <span class="title">数据导入</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a th:href="@{/data/export}" class="nav-link " id="export">
+                            <span class="title">数据导出</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
         <!-- END SIDEBAR MENU -->
     </div>

@@ -9,6 +9,6 @@ public interface DataManagementApiService {
 
     boolean importData(File file);
 
-    boolean importData(String sql);
+    void importData(String sql);
 
 }

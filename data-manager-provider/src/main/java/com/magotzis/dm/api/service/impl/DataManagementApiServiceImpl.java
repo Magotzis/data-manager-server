@@ -23,8 +23,8 @@ public class DataManagementApiServiceImpl implements DataManagementApiService{
     }
 
     @Override
-    public boolean importData(String sql) {
+    public void importData(String sql) {
         Assert.hasText(sql, "sql can not be null");
-        return dataManagementService.importData(sql);
+        dataManagementService.importData(sql);
     }
 }

@@ -1,5 +1,6 @@
 package com.magotzis.dm.service.impl;
 
+import com.magotzis.dm.api.exception.data.SqlExecuteFailException;
 import com.magotzis.dm.service.DataManagementService;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.slf4j.Logger;
@@ -42,18 +43,18 @@ public class DataManagementServiceImpl implements DataManagementService {
             runner.setDelimiter(";");////每条命令间的分隔符
             runner.setSendFullScript(false);
             runner.setStopOnError(false);
-            runner.runScript(new InputStreamReader(new FileInputStream(file),"utf-8"));
+            runner.runScript(new InputStreamReader(new FileInputStream(file), "utf-8"));
         } catch (Exception e) {
-            LOGGER.error("执行sql文件失败",e);
+            LOGGER.error("执行sql文件失败", e);
             return false;
-        }finally{
+        } finally {
             close(conn);
         }
         return true;
     }
 
     @Override
-    public boolean importData(String sql) {
+    public void importData(String sql) {
         Connection conn = null;
         try {
             Class.forName(driver);
@@ -65,11 +66,10 @@ public class DataManagementServiceImpl implements DataManagementService {
             }
             statement.executeBatch();
         } catch (Exception e) {
-            LOGGER.error("执行sql失败",e);
-            return false;
-        }finally{
+            LOGGER.error("执行sql失败", e);
+            throw new SqlExecuteFailException(e.getMessage());
+        } finally {
             close(conn);
         }
-        return true;
     }
 }
