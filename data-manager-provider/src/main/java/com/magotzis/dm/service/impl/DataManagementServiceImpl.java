@@ -2,6 +2,7 @@ package com.magotzis.dm.service.impl;
 
 import com.magotzis.dm.api.exception.data.SqlExecuteFailException;
 import com.magotzis.dm.service.DataManagementService;
+import com.magotzis.dm.util.UUIDUtil;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,5 +72,24 @@ public class DataManagementServiceImpl implements DataManagementService {
         } finally {
             close(conn);
         }
+    }
+
+    @Override
+    public File exportData(String sql) {
+        Connection conn = null;
+        String fileName ="/var/lib/mysql-files/" + UUIDUtil.getUUID() + ".xls";
+        try {
+            String exeSql = sql + " into outfile '" + fileName + "'";
+            Class.forName(driver);
+            conn = DriverManager.getConnection(url, username, password);
+            Statement statement = conn.createStatement();
+            statement.execute(exeSql);
+        } catch (Exception e) {
+            LOGGER.error("执行sql失败", e);
+            throw new SqlExecuteFailException(e.getMessage());
+        } finally {
+            close(conn);
+        }
+        return new File(fileName);
     }
 }

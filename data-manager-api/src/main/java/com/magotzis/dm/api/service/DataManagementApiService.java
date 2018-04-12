@@ -11,4 +11,5 @@ public interface DataManagementApiService {
 
     void importData(String sql);
 
+    File exportData(String sql);
 }

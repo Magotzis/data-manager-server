@@ -27,4 +27,10 @@ public class DataManagementApiServiceImpl implements DataManagementApiService{
         Assert.hasText(sql, "sql can not be null");
         dataManagementService.importData(sql);
     }
+
+    @Override
+    public File exportData(String sql) {
+        Assert.hasText(sql, "sql can not be null");
+        return dataManagementService.exportData(sql);
+    }
 }
