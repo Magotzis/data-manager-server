@@ -39,7 +39,7 @@ public class ImportHistoryServiceImpl implements ImportHistoryService {
     @Override
     public void importData(ImportHistory importHistory) {
         try {
-            dataManagementApiService.importData(importHistory.getApplyContent());
+            dataManagementApiService.importData(importHistory.getContent());
             importHistory.setState(ImportHistoryState.SUCCESS.getState());
             importHistory.setErrorMsg(null);
         } catch (SqlExecuteFailException e) {

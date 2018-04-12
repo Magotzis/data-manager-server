@@ -91,6 +91,7 @@ function deleteRole(row) {
 function addModal() {
     $role.val('');
     $role.data('id', '');
+    $role.attr('disabled',false);
     // 清楚所有选择
     $resources.html('');
     // 初始化所有资源
@@ -114,6 +115,7 @@ function editModal(row) {
     var data = $table.DataTable().rows(row).data()[0];
     $role.val(data.role);
     $role.data('id', data.id);
+    $role.attr('disabled',true);
     // 清楚所有选择
     $resources.html('');
     // 初始化所有资源

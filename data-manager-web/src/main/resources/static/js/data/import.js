@@ -93,6 +93,7 @@ function importData() {
         dataType: "json",
         contentType: 'application/json;charset=utf-8',
         success: function (json) {
+            $table.DataTable().ajax.reload(null, false);
             $('#addModal').modal('hide');
             if (json.statusCode === 200) {
                 notify('success', '导入成功');
