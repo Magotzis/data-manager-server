@@ -7,5 +7,5 @@ public interface DataManagementService {
 
     void importData(String sql);
 
-    File exportData(String sql);
+    String exportData(String sql);
 }

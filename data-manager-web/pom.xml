@@ -7,9 +7,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>data-manager-web</artifactId>
-    <packaging>war</packaging>
-    <name>data-manager-web Maven Webapp</name>
-    <url>http://maven.apache.org</url>
+
     <dependencies>
         <!-- data-manager modules -->
         <dependency>
@@ -135,5 +133,30 @@
             <filter>src/main/resources/config/application-${env}.properties</filter>
         </filters>
         <finalName>data-manager-web</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>com.magotzis.dm.Bootstrap</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>

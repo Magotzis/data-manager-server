@@ -29,7 +29,7 @@ public class DataManagementApiServiceImpl implements DataManagementApiService{
     }
 
     @Override
-    public File exportData(String sql) {
+    public String exportData(String sql) {
         Assert.hasText(sql, "sql can not be null");
         return dataManagementService.exportData(sql);
     }

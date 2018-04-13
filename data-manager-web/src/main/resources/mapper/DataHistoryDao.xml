@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.magotzis.dm.dao.DataHistoryDao">
+    <resultMap id="baseResultMap" type="com.magotzis.dm.model.DataHistory">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="apply_content" jdbcType="VARCHAR" property="applyContent"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="error_msg" jdbcType="BLOB" property="errorMsg"/>
+        <result column="content" jdbcType="BLOB" property="content"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <resultMap id="DataHistoryVo" type="com.magotzis.dm.vo.DataHistoryVo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="apply_content" jdbcType="VARCHAR" property="applyContent"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <insert id="insert">
+        INSERT INTO `data_history` (user_id, apply_content, state, error_msg, content, type, update_time)
+            VALUE (#{userId}, #{applyContent}, #{state}, #{errorMsg}, #{content}, #{type}, #{updateTime})
+    </insert>
+
+    <select id="getList" resultMap="DataHistoryVo">
+        SELECT
+            i.id,
+            i.apply_content,
+            i.state,
+            i.update_time,
+            u.username
+        FROM `data_history` i
+            LEFT JOIN `user` u ON u.id = i.user_id
+        WHERE i.type = #{type}
+    </select>
+
+    <select id="findById" resultMap="baseResultMap">
+        SELECT *
+        FROM `data_history`
+        WHERE id = #{id} AND type = #{type}
+    </select>
+
+</mapper>

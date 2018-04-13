@@ -75,9 +75,9 @@ public class DataManagementServiceImpl implements DataManagementService {
     }
 
     @Override
-    public File exportData(String sql) {
+    public String exportData(String sql) {
         Connection conn = null;
-        String fileName ="/var/lib/mysql-files/" + UUIDUtil.getUUID() + ".xls";
+        String fileName ="E:/mysql/backup/" + UUIDUtil.getUUID() + ".xls";
         try {
             String exeSql = sql + " into outfile '" + fileName + "'";
             Class.forName(driver);
@@ -90,6 +90,6 @@ public class DataManagementServiceImpl implements DataManagementService {
         } finally {
             close(conn);
         }
-        return new File(fileName);
+        return fileName;
     }
 }
