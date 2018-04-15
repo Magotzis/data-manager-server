@@ -113,22 +113,24 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                                     <h4 class="modal-title">导出申请</h4>
                                 </div>
-                                <div class="modal-body">
-                                    <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <p>
-                                                    <input type="text" class="form-control edited" placeholder="申请理由" id="applyContent">
-                                                </p>
-                                                <textarea class="form-control" id="content" style="height: 214px;"></textarea>
+                                <form id = "exportForm" method="post" action="/data/exportHistory" onsubmit="importData()">
+                                    <div class="modal-body">
+                                        <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>
+                                                        <input type="text" class="form-control edited" placeholder="申请理由" id="applyContent" name="applyContent">
+                                                    </p>
+                                                    <textarea class="form-control" id="content" style="height: 214px;" name="content"></textarea>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" data-dismiss="modal" class="btn dark btn-outline">关闭</button>
-                                    <button onclick="importData()" type="button" class="btn green">提交</button>
-                                </div>
+                                    <div class="modal-footer">
+                                        <button type="button" data-dismiss="modal" class="btn dark btn-outline">关闭</button>
+                                        <button type="submit" class="btn green">提交</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

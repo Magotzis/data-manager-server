@@ -62,7 +62,7 @@ public class DataController {
     }
 
     @PostMapping("/exportHistory")
-    public void addExportHistory(@RequestBody() DataHistory dataHistory, HttpServletRequest request, HttpServletResponse response) {
+    public void addExportHistory(DataHistory dataHistory, HttpServletRequest request, HttpServletResponse response) {
         Assert.hasText(dataHistory.getContent(), "content can not be null");
         Assert.hasText(dataHistory.getApplyContent(), "applyContent can not be null");
         SecurityContextImpl securityContextImpl = (SecurityContextImpl) request.getSession()

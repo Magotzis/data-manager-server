@@ -26,9 +26,9 @@ var exportTable = function () {
                         data: "state",
                         orderable: false,
                         render: function (data, type, row, meta) {
-                           if (data === 0) {
+                            if (data === 0) {
                                 return '<span class="label label-sm label-info" style="margin-right: 2px;">执行成功</span>';
-                            }else {
+                            } else {
                                 return '<span class="label label-sm label-danger" style="margin-right: 2px;">执行失败</span>';
                             }
                         }
@@ -85,23 +85,14 @@ jQuery(document).ready(function () {
 });
 
 function importData() {
-    var data = {content: $('#content').val(), applyContent: $('#applyContent').val()};
-    $.ajax({
-        type: 'POST',
-        url: '/data/exportHistory',
-        data: JSON.stringify(data),
-        dataType: "json",
-        contentType: 'application/json;charset=utf-8',
-        success: function (json) {
-            $table.DataTable().ajax.reload(null, false);
-            $('#addModal').modal('hide');
-            if (json.statusCode === 200) {
-                notify('success', '导出成功');
-                $('#content').val('');
-                $('#applyContent').val('');
-            } else {
-                notify('danger', json.message);
-            }
-        }
-    });
+    var content = $('#content').val();
+    var applyContent = $('#applyContent').val();
+    if ((content == null || content === '') && (applyContent == null || applyContent === '')) {
+        return false;
+    }
+    var dataForm = $('#exportForm');
+    dataForm.submit();//表单提交
+    $('#content').val('');
+    $('#applyContent').val('');
+    $('#addModal').modal('hide');
 }
