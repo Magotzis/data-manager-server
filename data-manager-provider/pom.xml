@@ -18,6 +18,10 @@
             <artifactId>data-manager-api</artifactId>
             <version>${data-manager-api.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
         <!-- slf4j & log -->
         <dependency>
             <groupId>org.slf4j</groupId>

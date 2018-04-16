@@ -1,5 +1,7 @@
 package com.magotzis.dm.controller;
 
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.magotzis.dm.api.service.DataManagementApiService;
 import com.magotzis.dm.enums.DataHistoryType;
 import com.magotzis.dm.model.DataHistory;
 import com.magotzis.dm.model.User;
@@ -26,6 +28,9 @@ public class DataController {
 
     @Resource
     private UserService userService;
+
+    @Reference
+    private DataManagementApiService dataManagementApiService;
 
     @GetMapping("/importHistory")
     public ResultMap getImportHistoryList() {
@@ -72,5 +77,10 @@ public class DataController {
         dataHistory.setUserId(user.getId());
         dataHistory.setType(DataHistoryType.EXPORT.getType());
         dataHistoryService.exportData(dataHistory, response);
+    }
+
+    @GetMapping("/dataSources")
+    public ResultMap getDataSourceList() {
+        return new ResultMap().success(dataManagementApiService.getDataSourceList());
     }
 }

@@ -51,6 +51,11 @@
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item  ">
+                        <a th:href="@{/data/summary}" class="nav-link " id="summary">
+                            <span class="title">数据源概述</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
                         <a th:href="@{/data/import}" class="nav-link " id="import">
                             <span class="title">数据导入</span>
                         </a>
@@ -58,6 +63,25 @@
                     <li class="nav-item  ">
                         <a th:href="@{/data/export}" class="nav-link " id="export">
                             <span class="title">数据导出</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:" class="nav-link nav-toggle">
+                    <i class="fa fa-database"></i>
+                    <span class="title">使用分析</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a th:href="@{/analysis/dataSource}" class="nav-link " id="dataSource">
+                            <span class="title">数据源使用分析</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a th:href="@{/analysis/subscriber}" class="nav-link " id="subscriber">
+                            <span class="title">用户使用分析</span>
                         </a>
                     </li>
                 </ul>

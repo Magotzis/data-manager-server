@@ -1,12 +1,14 @@
 package com.magotzis.dm.api.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.magotzis.dm.api.dto.DataSourceDto;
 import com.magotzis.dm.api.service.DataManagementApiService;
 import com.magotzis.dm.service.DataManagementService;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.io.File;
+import java.util.List;
 
 /**
  * @author dengyq on 14:55 2018/2/7
@@ -32,5 +34,10 @@ public class DataManagementApiServiceImpl implements DataManagementApiService{
     public String exportData(String sql) {
         Assert.hasText(sql, "sql can not be null");
         return dataManagementService.exportData(sql);
+    }
+
+    @Override
+    public List<DataSourceDto> getDataSourceList() {
+        return dataManagementService.getDataSourceList();
     }
 }

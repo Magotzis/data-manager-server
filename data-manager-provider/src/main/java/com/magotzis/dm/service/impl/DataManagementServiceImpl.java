@@ -1,6 +1,8 @@
 package com.magotzis.dm.service.impl;
 
+import com.magotzis.dm.api.dto.DataSourceDto;
 import com.magotzis.dm.api.exception.data.SqlExecuteFailException;
+import com.magotzis.dm.dao.CommonDao;
 import com.magotzis.dm.service.DataManagementService;
 import com.magotzis.dm.util.UUIDUtil;
 import org.apache.ibatis.jdbc.ScriptRunner;
@@ -9,12 +11,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.util.List;
 
 import static com.alibaba.druid.util.JdbcUtils.close;
 
@@ -31,6 +35,9 @@ public class DataManagementServiceImpl implements DataManagementService {
     private String username;
     @Value("${spring.datasource.password}")
     private String password;
+
+    @Resource
+    private CommonDao commonDao;
 
     @Override
     public boolean importData(File file) {
@@ -77,7 +84,7 @@ public class DataManagementServiceImpl implements DataManagementService {
     @Override
     public String exportData(String sql) {
         Connection conn = null;
-        String fileName ="E:/mysql/backup/" + UUIDUtil.getUUID() + ".xls";
+        String fileName ="/var/lib/mysql-files/" + UUIDUtil.getUUID() + ".xls";
         try {
             String exeSql = sql + " into outfile '" + fileName + "'";
             Class.forName(driver);
@@ -91,5 +98,10 @@ public class DataManagementServiceImpl implements DataManagementService {
             close(conn);
         }
         return fileName;
+    }
+
+    @Override
+    public List<DataSourceDto> getDataSourceList() {
+        return commonDao.getDataSourceList();
     }
 }
