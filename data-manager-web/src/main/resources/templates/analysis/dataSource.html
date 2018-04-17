@@ -1,0 +1,90 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+    <!-- BEGIN HEAD -->
+
+    <head>
+        <meta charset="utf-8" />
+        <title>数据管理平台</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta th:include="@{/component/common-css} :: common-css">
+    </head>
+    <!-- END HEAD -->
+
+    <body class="page-container-bg-solid page-header-fixed page-footer-fixed page-sidebar-closed-hide-logo page-md">
+        <!-- BEGIN HEADER -->
+        <div th:replace="@{/component/header} :: header"></div>
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN SIDEBAR -->
+            <div th:replace="@{/component/sidebar} :: sidebar"></div>
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content">
+                    <!-- BEGIN PAGE HEAD-->
+                    <div class="page-head">
+                        <!-- BEGIN PAGE TITLE -->
+                        <div class="page-title">
+                            <h1> 数据源使用分析 </h1>
+                        </div>
+                        <!-- END PAGE TITLE -->
+                    </div>
+                    <!-- END PAGE HEAD-->
+                    <!-- BEGIN PAGE BREADCRUMB -->
+                    <ul class="page-breadcrumb breadcrumb">
+                        <li>
+                            <a th:href="@{/index}">Home</a>
+                            <i class="fa fa-circle"></i>
+                        </li>
+                        <li>
+                            <a href="#">使用分析</a>
+                            <i class="fa fa-circle"></i>
+                        </li>
+                        <li>
+                            <span class="active">数据源使用分析</span>
+                        </li>
+                    </ul>
+                    <!-- END PAGE BREADCRUMB -->
+                    <!-- BEGIN PAGE BASE CONTENT -->
+                    <!-- 网页内容从这开始 -->
+                    <!-- HIGHCHARTS -->
+                    <div class="portlet-body">
+                        <div id="mainContainer" style="height:500px;"></div>
+                    </div>
+                    <!-- 网页内容结束 -->
+                    <!-- END PAGE BASE CONTENT -->
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+        </div>
+        <!-- END CONTAINER -->
+        <!-- BEGIN FOOTER -->
+        <div th:replace="@{/component/footer} :: footer"></div>
+        <!-- END FOOTER -->
+        <div th:include="@{/component/common-js} :: common-js"></div>
+
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <script th:src="@{/assets/global/plugins/highcharts/js/highcharts.js}" type="text/javascript"></script>
+        <script th:src="@{/assets/global/plugins/highcharts/js/highcharts-3d.js}" type="text/javascript"></script>
+        <script th:src="@{/assets/global/plugins/highcharts/js/highcharts-more.js}" type="text/javascript"></script>
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <script th:src="@{/assets/pages/scripts/charts-highcharts.min.js}" type="text/javascript"></script>
+        <script th:src="@{/js/analysis/dataSource.js}" type="text/javascript"></script>
+        <!-- END PAGE LEVEL SCRIPTS -->
+    </body>
+
+</html>
