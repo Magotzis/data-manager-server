@@ -4,6 +4,7 @@ import com.magotzis.dm.api.dto.AnalysisDto;
 import com.magotzis.dm.api.service.AnalysisApiService;
 import com.magotzis.dm.service.AnalysisService;
 import com.alibaba.dubbo.config.annotation.Service;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -20,5 +21,12 @@ public class AnalysisApiServiceImpl implements AnalysisApiService {
     @Override
     public List<AnalysisDto> getFullDataSourcesAnalysis() {
         return analysisService.getFullDataSourcesAnalysis();
+    }
+
+    @Override
+    public int getDataSourceNum(String dataSource, int type, String time) {
+        Assert.hasText(dataSource, "dataSource can not be null");
+        Assert.hasText(time, "time can not be null");
+        return analysisService.getDataSourceNum(dataSource, type, time);
     }
 }

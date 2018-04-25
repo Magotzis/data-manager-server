@@ -31,3 +31,14 @@ function notify(type, message) {
         stackup_spacing: 10
     });
 }
+
+function isEmpty(str) {
+    if (str == null || str === '') {
+        return true;
+    }
+    return false;
+}
+
+function isNotEmpty(str) {
+    return !isEmpty(str);
+}

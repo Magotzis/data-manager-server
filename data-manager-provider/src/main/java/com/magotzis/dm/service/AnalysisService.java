@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface AnalysisService {
     public List<AnalysisDto> getFullDataSourcesAnalysis();
+
+    int getDataSourceNum(String dataSource, int type, String time);
 }

@@ -21,4 +21,9 @@ public class AnalysisServiceImpl implements AnalysisService {
     public List<AnalysisDto> getFullDataSourcesAnalysis() {
         return analysisDao.getFullDataSourcesAnalysis();
     }
+
+    @Override
+    public int getDataSourceNum(String dataSource, int type, String time) {
+        return analysisDao.getDataSourceNum(dataSource, type, time);
+    }
 }
