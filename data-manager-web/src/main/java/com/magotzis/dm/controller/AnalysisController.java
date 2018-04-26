@@ -32,4 +32,12 @@ public class AnalysisController {
         Assert.hasText(end, "end can not be null");
         return new ResultMap().success(analysisService.getDataSourcesAnalysis(dataSources, begin, end));
     }
+
+    @GetMapping("/userRecord/{username}")
+    public ResultMap getUserRecordAnalysis(@PathVariable("username") String username, String begin, String end) {
+        Assert.hasText(username, "dataSources can not be null");
+        Assert.hasText(begin, "begin can not be null");
+        Assert.hasText(end, "end can not be null");
+        return new ResultMap().success(analysisService.getUserRecordAnalysis(username, begin, end));
+    }
 }

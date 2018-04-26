@@ -34,4 +34,25 @@
             AND DATE_FORMAT(create_time,'%Y-%m-%d %H:%i') = #{time}
         </if>
     </select>
+
+    <select id="getUserRecordNum" resultType="int">
+        SELECT count(*)
+        FROM `data-manager`.`userRecord_log`
+        WHERE `name` = #{username}
+        <if test="type == 1">
+            AND DATE_FORMAT(create_time,'%Y') = #{time}
+        </if>
+        <if test="type == 2">
+            AND DATE_FORMAT(create_time,'%Y-%m') = #{time}
+        </if>
+        <if test="type == 3">
+            AND DATE_FORMAT(create_time,'%Y-%m-%d') = #{time}
+        </if>
+        <if test="type == 4">
+            AND DATE_FORMAT(create_time,'%Y-%m-%d %H') = #{time}
+        </if>
+        <if test="type == 5">
+            AND DATE_FORMAT(create_time,'%Y-%m-%d %H:%i') = #{time}
+        </if>
+    </select>
 </mapper>

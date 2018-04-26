@@ -29,4 +29,11 @@ public class AnalysisApiServiceImpl implements AnalysisApiService {
         Assert.hasText(time, "time can not be null");
         return analysisService.getDataSourceNum(dataSource, type, time);
     }
+
+    @Override
+    public int getUserRecordNum(String username, int type, String time) {
+        Assert.hasText(username, "username can not be null");
+        Assert.hasText(time, "time can not be null");
+        return analysisService.getUserRecordNum(username, type, time);
+    }
 }

@@ -11,4 +11,6 @@ public interface AnalysisApiService {
     List<AnalysisDto> getFullDataSourcesAnalysis();
 
     int getDataSourceNum(String dataSource, int type, String time);
+
+    int getUserRecordNum(String username, int type, String time);
 }

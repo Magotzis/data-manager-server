@@ -26,4 +26,9 @@ public class AnalysisServiceImpl implements AnalysisService {
     public int getDataSourceNum(String dataSource, int type, String time) {
         return analysisDao.getDataSourceNum(dataSource, type, time);
     }
+
+    @Override
+    public int getUserRecordNum(String username, int type, String time) {
+        return analysisDao.getUserRecordNum(username, type, time);
+    }
 }

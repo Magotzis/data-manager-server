@@ -12,4 +12,6 @@ public interface AnalysisService {
     List<AnalysisDto> getFullDataSourcesAnalysis();
 
     DataSourcesAnalysisVo getDataSourcesAnalysis(String dataSources, String begin, String end);
+
+    DataSourcesAnalysisVo getUserRecordAnalysis(String username, String begin, String end);
 }

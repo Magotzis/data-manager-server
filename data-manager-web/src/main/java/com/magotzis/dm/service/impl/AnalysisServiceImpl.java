@@ -4,13 +4,17 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.magotzis.dm.api.dto.AnalysisDto;
 import com.magotzis.dm.api.service.AnalysisApiService;
 import com.magotzis.dm.exception.analysis.DateErrorException;
+import com.magotzis.dm.exception.user.UserNotExistException;
+import com.magotzis.dm.model.User;
 import com.magotzis.dm.service.AnalysisService;
+import com.magotzis.dm.service.UserService;
 import com.magotzis.dm.vo.AnalysisVo;
 import com.magotzis.dm.vo.DataSourcesAnalysisVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -26,6 +30,9 @@ public class AnalysisServiceImpl implements AnalysisService {
     @Reference
     private AnalysisApiService analysisApiService;
 
+    @Resource
+    private UserService userService;
+
     @Override
     public List<AnalysisDto> getFullDataSourcesAnalysis() {
         return analysisApiService.getFullDataSourcesAnalysis();
@@ -34,32 +41,25 @@ public class AnalysisServiceImpl implements AnalysisService {
     @Override
     public DataSourcesAnalysisVo getDataSourcesAnalysis(String dataSources, String begin, String end) {
         DataSourcesAnalysisVo dataSourcesAnalysisVo = new DataSourcesAnalysisVo();
-        try {
-            /*
-              转换时间
-             */
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            Date beginTime = formatter.parse(begin);
-            Date endTime = formatter.parse(end);
-            if (beginTime.after(endTime)) {
-                throw new DateErrorException("开始时间不能晚于结束时间");
-            }
-            Calendar beginCalendar = Calendar.getInstance();
-            Calendar endCalendar = Calendar.getInstance();
-            beginCalendar.setTime(beginTime);
-            endCalendar.setTime(endTime);
-            // 设置时间轴
-            List<String> xAxis = new ArrayList<>();
-            int type = decideViewType(beginCalendar, endCalendar, xAxis);
-            dataSourcesAnalysisVo.setAxis(xAxis);
-            // 设置数据源
-            List<String> dataSourceList = Arrays.asList(dataSources.split("-"));
-            dataSourcesAnalysisVo.setAnalysisVos(getAnalysisVoList(dataSourceList, type, xAxis));
-        } catch (ParseException e) {
-            LOGGER.info("日期转换失败");
-            throw new DateErrorException("时间格式错误，请输入正确的时间");
-        }
+        // 处理时间
+        int type = timeHandle(dataSourcesAnalysisVo, begin, end);
+        // 设置数据源
+        List<String> dataSourceList = Arrays.asList(dataSources.split("-"));
+        dataSourcesAnalysisVo.setAnalysisVos(getAnalysisVoList(dataSourceList, type, dataSourcesAnalysisVo.getAxis()));
+        return dataSourcesAnalysisVo;
+    }
 
+    @Override
+    public DataSourcesAnalysisVo getUserRecordAnalysis(String username, String begin, String end) {
+        User user = userService.getUserByUsername(username);
+        if (user == null) {
+            throw new UserNotExistException();
+        }
+        DataSourcesAnalysisVo dataSourcesAnalysisVo = new DataSourcesAnalysisVo();
+        // 处理时间
+        int type = timeHandle(dataSourcesAnalysisVo, begin, end);
+        // 设置数据源
+        dataSourcesAnalysisVo.setAnalysisVos(getAnalysisVoList(username, type, dataSourcesAnalysisVo.getAxis()));
         return dataSourcesAnalysisVo;
     }
 
@@ -76,6 +76,44 @@ public class AnalysisServiceImpl implements AnalysisService {
             analysisVoList.add(analysisVo);
         });
         return analysisVoList;
+    }
+
+    private List<AnalysisVo> getAnalysisVoList(String username, int type, List<String> xAxis) {
+        List<AnalysisVo> analysisVoList = new ArrayList<>();
+        AnalysisVo analysisVo = new AnalysisVo();
+        analysisVo.setName(username);
+        List<Integer> list = new ArrayList<>();
+        for (String aX : xAxis) {
+            list.add(analysisApiService.getUserRecordNum(username, type, aX));
+        }
+        analysisVo.setList(list);
+        analysisVoList.add(analysisVo);
+        return analysisVoList;
+    }
+
+    private int timeHandle(DataSourcesAnalysisVo dataSourcesAnalysisVo, String begin, String end) {
+        try {
+            /*
+              转换时间
+             */
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            Date beginTime = formatter.parse(begin);
+            Date endTime = formatter.parse(end);
+            if (beginTime.after(endTime)) {
+                throw new DateErrorException("开始时间不能晚于结束时间");
+            }
+            Calendar beginCalendar = Calendar.getInstance();
+            Calendar endCalendar = Calendar.getInstance();
+            beginCalendar.setTime(beginTime);
+            endCalendar.setTime(endTime);
+            // 设置时间轴
+            List<String> xAxis = new ArrayList<>();
+            dataSourcesAnalysisVo.setAxis(xAxis);
+            return decideViewType(beginCalendar, endCalendar, xAxis);
+        } catch (ParseException e) {
+            LOGGER.info("日期转换失败");
+            throw new DateErrorException("时间格式错误，请输入正确的时间");
+        }
     }
 
     private int decideViewType(Calendar beginCalendar, Calendar endCalendar, List<String> xAxis) {

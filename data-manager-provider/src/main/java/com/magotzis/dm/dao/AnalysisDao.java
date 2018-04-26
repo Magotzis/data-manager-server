@@ -15,4 +15,6 @@ public interface AnalysisDao {
     List<AnalysisDto> getFullDataSourcesAnalysis();
 
     int getDataSourceNum(@Param("dataSource") String dataSource, @Param("type") int type, @Param("time") String time);
+
+    int getUserRecordNum(@Param("username") String username, @Param("type") int type, @Param("time") String time);
 }
