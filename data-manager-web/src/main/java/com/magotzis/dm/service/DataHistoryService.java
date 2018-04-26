@@ -1,5 +1,6 @@
 package com.magotzis.dm.service;
 
+import com.magotzis.dm.api.dto.DataSourceDto;
 import com.magotzis.dm.model.DataHistory;
 import com.magotzis.dm.vo.DataHistoryVo;
 
@@ -17,4 +18,6 @@ public interface DataHistoryService {
     void importData(DataHistory dataHistory);
 
     void exportData(DataHistory dataHistory, HttpServletResponse response);
+
+    List<DataSourceDto> getDataSourceList();
 }

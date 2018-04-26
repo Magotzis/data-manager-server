@@ -1,6 +1,7 @@
 package com.magotzis.dm.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.magotzis.dm.api.dto.DataSourceDto;
 import com.magotzis.dm.api.exception.data.SqlExecuteFailException;
 import com.magotzis.dm.api.service.DataManagementApiService;
 import com.magotzis.dm.dao.DataHistoryDao;
@@ -100,5 +101,10 @@ public class DataHistoryServiceImpl implements DataHistoryService {
                 throw new FileDownloadFailException();
             }
         }
+    }
+
+    @Override
+    public List<DataSourceDto> getDataSourceList() {
+        return dataManagementApiService.getDataSourceList();
     }
 }
